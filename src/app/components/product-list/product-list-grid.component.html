@@ -1,0 +1,52 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid mt-4">
+            <div class="row">
+
+                <!-- loop over the collection of products -->
+                <div *ngFor="let tempProduct of products" class="col-md-3 col-sm-6 col-xs-12 mb-4">
+
+                    <div class="product-box">
+
+                        <a routerLink="/product/{{ tempProduct.id}}">
+                            <img src="{{ tempProduct.imageUrl }}" class="img-responsive">
+                        </a>
+
+                        <a routerLink="/product/{{ tempProduct.id}}">
+                            <h1>{{ tempProduct.name }}</h1>
+                        </a>
+
+                        <div class="price">{{ tempProduct.unitPrice | currency:'USD' }}</div>
+                        <button (click)="addToCart(tempProduct)" class="btn btn-primary btn-sm">Add to cart</button>
+                    </div>
+                </div>
+
+                <!-- if products not found -->
+                <div *ngIf="products?.length == 0" class="alert alert-danger col-md-12" role="alert">
+                    No Product Found.
+                </div>
+            </div>
+            <!-- Pagination controls -->
+            <div class="footer-pagination">
+                <div class="row">
+                    <div class="col-md-6"></div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-9" style="padding-left: 30%;">
+
+                                <ngb-pagination [(page)]="thePageNumber" 
+                                                [pageSize]="thePageSize"
+                                                [collectionSize]="theTotalElements" 
+                                                (pageChange)="listProducts()">
+
+
+                                </ngb-pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
