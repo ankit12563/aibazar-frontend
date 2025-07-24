@@ -12,11 +12,14 @@ import { SearchComponent } from './components/search/search.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
-import { CartDetailsComponent } from './components/cart-details/cart-details.component'; 
+import { CartDetailsComponent } from './components/cart-details/cart-details.component';
+import { CheckoutComponent } from './components/checkout/checkout.component'; 
+import { ReactiveFormsModule } from '@angular/forms';
 
 //Define the routes for to search products by category
 const routes: Routes = [
-  {path: "cart-details", component: CartDetailsComponent},
+  {path: "checkout", component: CheckoutComponent}, // Route to handle checkout
+  {path: "cart-details", component: CartDetailsComponent}, // Route to view cart details
   {path: "product/:id", component: ProductDetailsComponent}, // Route to view product details by ID
   {path: "search/:keyword", component: ProductListComponent}, // Route to search products by keyword
   {path: "category/:id", component: ProductListComponent}, // Route to search products by category ID
@@ -33,13 +36,15 @@ const routes: Routes = [
     SearchComponent,
     ProductDetailsComponent,
     CartStatusComponent,
-    CartDetailsComponent
+    CartDetailsComponent,
+    CheckoutComponent
   ],
   imports: [
     RouterModule.forRoot(routes), 
     BrowserModule,
     AppRoutingModule,
-    NgbModule 
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
