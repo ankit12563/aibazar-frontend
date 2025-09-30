@@ -17,17 +17,29 @@
                             </label>
                             <input type="text" class="form-control" formControlName="firstName"
                                 placeholder="Enter your first name">
-                                <div *ngIf="firstName?.invalid && (firstName?.touched || firstName?.dirty)" class="alert alert-danger mt-1">
-                                    <div *ngIf="firstName?.errors?.['required']">First name is required.</div>
-                                    <div *ngIf="firstName?.errors?.['minlength']">First name must be at least 2 characters long.</div>
-                                </div>
+                            <div *ngIf="firstName?.invalid && (firstName?.touched || firstName?.dirty)"
+                                class="alert alert-danger mt-1">
+                                <div
+                                    *ngIf="firstName?.errors?.['required'] || firstName?.errors?.['notOnlyWhitespace']">
+                                    First name is required.</div>
+                                <div *ngIf="firstName?.errors?.['minlength']">First name must be at least 2 characters
+                                    long.</div>
+                            </div>
                         </div>
-                        
+
                         <div class="col-md-6"><label>
                                 <h5>Last Name</h5>
                             </label>
                             <input type="text" class="form-control" formControlName="lastName"
                                 placeholder="Enter your last name">
+
+                            <div *ngIf="lastName?.invalid && (lastName?.touched || lastName?.dirty)"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="lastName?.errors?.['required'] || lastName?.errors?.['notOnlyWhitespace']">
+                                    Last name is required.</div>
+                                <div *ngIf="lastName?.errors?.['minlength']">Last name must be at least 2 characters
+                                    long.</div>
+                            </div>
                         </div>
                     </div>
 
@@ -62,61 +74,121 @@
                             </label>
                             <input type="text" class="form-control" formControlName="email"
                                 placeholder="Enter your email">
+
+                            <div *ngIf="email?.invalid && (email?.touched || email?.dirty)"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="email?.errors?.['required'] || email?.errors?.['notOnlyWhitespace']">Email
+                                    is required.</div>
+                                <div *ngIf="email?.errors?.['pattern']">Email must be vaild email.</div>
+                            </div>
                         </div>
+
                         <div class="col-md-6"><label>
                                 <h5>Phone Number</h5>
                             </label>
                             <input type="text" class="form-control" formControlName="phoneNumber"
                                 placeholder="Enter your phone number">
-                        </div>
+                            <div *ngIf="phoneNumber?.invalid && (phoneNumber?.touched || phoneNumber?.dirty)"
+                                class="alert alert-danger mt-1">
+                                <div
+                                    *ngIf="phoneNumber?.errors?.['required'] || phoneNumber?.errors?.['notOnlyWhitespace']">
+                                    Phone number is required.</div>
+                                <div *ngIf="phoneNumber?.errors?.['pattern']">Phone number must be vaild phone number.
+                                </div>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
 
 
-                <div formGroupName="shippingAdress" class="form-area">
-                    <h3>Shipping Adress</h3>
+
+                <div formGroupName="shippingAddress" class="form-area">
+                    <h3>Shipping Address</h3>
 
                     <div class="row">
                         <div class="col-md-4"><label>
                                 <h5>Zip Code</h5>
                             </label>
-                            <input type="number" class="form-control" formControlName="zipCode"
+                            <input type="text" class="form-control" formControlName="zipCode"
                                 placeholder="Enter your zip code">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4"><label>
-                                <h5>Country</h5>
-                            </label>
-                            <input type="text" class="form-control" formControlName="country"
-                                placeholder="Enter your country">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4"><label>
-                                <h5>State</h5>
-                            </label>
-                            <input type="text" class="form-control" formControlName="state"
-                                placeholder="Enter your state">
+
+                            <div *ngIf="zipCode?.invalid && (zipCode?.touched || zipCode?.dirty)"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="zipCode?.errors?.['required']">
+                                    Zip code is required.
+                                </div>
+                                <div *ngIf="zipCode?.errors?.['pattern']">
+                                    Zip code must be exactly 7 digits.
+                                </div>
+
+                            </div>
                         </div>
 
-                        <div class="col-md-4"><label>
-                                <h5>City</h5>
-                            </label>
-                            <input type="text" class="form-control" formControlName="city"
-                                placeholder="Enter your city">
-                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><label>
+                                    <h5>Country</h5>
+                                </label>
+                                <input type="text" class="form-control" formControlName="country"
+                                    placeholder="Enter your country">
+                                <div *ngIf="country?.invalid && (country?.touched || country?.dirty)"
+                                    class="alert alert-danger mt-1">
+                                    <div
+                                        *ngIf="country?.errors?.['required'] || country?.errors?.['notOnlyWhitespace']">
+                                        Country is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><label>
+                                        <h5>State</h5>
+                                    </label>
+                                    <input type="text" class="form-control" formControlName="state"
+                                        placeholder="Enter your state">
 
-                        <div class="col-md-4"><label>
-                                <h5>Street</h5>
-                            </label>
-                            <input type="text" class="form-control" formControlName="street"
-                                placeholder="Enter your street and house number">
+                                    <div *ngIf="state?.invalid && (state?.touched || state?.dirty)"
+                                        class="alert alert-danger mt-1">
+                                        <div
+                                            *ngIf="state?.errors?.['required'] || state?.errors?.['notOnlyWhitespace']">
+                                            State is required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4"><label>
+                                        <h5>City</h5>
+                                    </label>
+                                    <input type="text" class="form-control" formControlName="city"
+                                        placeholder="Enter your city">
+
+                                    <div *ngIf="city?.invalid && (city?.touched || city?.dirty)"
+                                        class="alert alert-danger mt-1">
+                                        <div *ngIf="city?.errors?.['required'] || city?.errors?.['notOnlyWhitespace']">
+                                            City is required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4"><label>
+                                        <h5>Street</h5>
+                                    </label>
+                                    <input type="text" class="form-control" formControlName="street"
+                                        placeholder="Enter your street and house number">
+
+                                    <div *ngIf="street?.invalid && (street?.touched || street?.dirty)"
+                                        class="alert alert-danger mt-1">
+                                        <div
+                                            *ngIf="street?.errors?.['required'] || street?.errors?.['notOnlyWhitespace']">
+                                            Street is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-
                 </div>
+
 
                 <div formGroupName="payment" class="form-area">
                     <h3>Payment Details</h3>
@@ -127,9 +199,16 @@
                             </label>
                             <select class="form-control" formControlName="paymentMethod">
                                 <option value="">Select payment method</option>
-                                <option value="Credit Card">Credit Card</option>
-                                <option value="Debit Card">Debit Card</option>
+                                <option value="Card">Visa</option>
+                                <option value="Card">JCB</option>
+                                <option value="Card">MasterCard</option>
                             </select>
+                            <div *ngIf="paymentMethod?.invalid && (paymentMethod?.touched || paymentMethod?.dirty)"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="paymentMethod?.errors?.['required']">
+                                    Payment method is required.
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -139,6 +218,15 @@
                             </label>
                             <input type="text" class="form-control" formControlName="nameOnCard"
                                 placeholder="Enter card holder name">
+
+                            <div *ngIf="nameOnCard?.invalid && (nameOnCard?.touched || nameOnCard?.dirty)"
+                                class="alert alert-danger mt-1">
+                                <div
+                                    *ngIf="nameOnCard?.errors?.['required'] || nameOnCard?.errors?.['notOnlyWhitespace']">
+                                    Card holder name is required.
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 
@@ -149,6 +237,17 @@
                             </label>
                             <input type="text" class="form-control" formControlName="cardNumber"
                                 placeholder="Enter your card number">
+
+                            <div *ngIf="cardNumber?.invalid && (cardNumber?.touched || cardNumber?.dirty)"
+                                class="alert alert-danger mt-1">
+                                <div
+                                    *ngIf="cardNumber?.errors?.['required'] || cardNumber?.errors?.['notOnlyWhitespace']">
+                                    Card number is required.
+                                </div>
+
+                                <div *ngIf="cardNumber?.errors?.['pattern']">Card number must be exactly 16 digits.
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -159,35 +258,56 @@
                             </label>
                             <input type="month" class="form-control" formControlName="expiryDate"
                                 placeholder="Select expiry date">
+
+                            <div *ngIf="expiryDate?.invalid && (expiryDate?.touched || expiryDate?.dirty)"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="expiryDate?.errors?.['required']">
+                                    Expiry date is required.
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-md-4"><label>
                                 <h5>CVV</h5>
                             </label>
-                            <input type="password" class="form-control" formControlName="securityCode" maxlength="3"
-                                pattern="\\d{3}" inputmode="numeric" placeholder="Enter CVV">
+                            <input type="password" class="form-control" formControlName="securityCode"
+                                inputmode="numeric" placeholder="Enter CVV">
+
+                            <div *ngIf="securityCode?.invalid && (securityCode?.touched || securityCode?.dirty)"
+                                class="alert alert-danger mt-1">
+                                <div
+                                    *ngIf="securityCode?.errors?.['required'] || securityCode?.errors?.['notOnlyWhitespace']">
+                                    Security code is required.
+                                </div>
+                                <div *ngIf="securityCode?.errors?.['pattern']">Security code must be exactly 3 digits.
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-
                 </div>
+
+
+
                 <div class="form-area">
                     <h3>Order Summary</h3>
-                    <p>Items in your cart: {{ totalQuantity }}</p>
-                    <p>Shipping: Free</p>
-                    <p>Total Amount: {{ totalPrice | currency: 'USD' }}</p>
+                    <p>Items in your cart: <strong>{{ totalQuantity }}</strong></p>
+                    <p>Shipping: <strong>Free</strong></p>
+                    <p>Total Amount: <strong>{{ totalPrice | currency: 'USD' }}</strong></p>
                     <p>Note: By clicking "Purchase", you agree to our <b>Terms and Conditions</b>.</p>
                 </div>
+
 
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <button type="submit" class="btn btn-info m-t-15 waves-effect">Purchase</button>
                     </div>
 
-
                 </div>
 
 
             </form>
+
         </div>
 
     </div>

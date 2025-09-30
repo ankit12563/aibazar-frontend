@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CartItem } from '../common/cart-item';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,31 @@ export class CartService {
 
   cartItems: CartItem[] = []; // Array to hold cart items
 
-  totalPrice: Subject<number> = new Subject<number>(); // Subject to emit total price changes
-  totalQuantity: Subject<number> = new Subject<number>(); // Subject to emit total quantity changes
+  totalPrice: Subject<number> = new BehaviorSubject<number>(0); // Subject to emit total price changes
+  totalQuantity: Subject<number> = new BehaviorSubject<number>(0); // Subject to emit total quantity changes
 
-  constructor() { }
+  storage: Storage = localStorage; // Use localStorage for persistent storage
+  // storage: Storage = sessionStorage; // Use sessionStorage for temporary storage
+
+  constructor() {
+    // Initialize cart items from session storage if available
+    const data = this.storage.getItem('cartItems'); // Retrieve cart items from storage
+    if (data) {
+      this.cartItems = JSON.parse(data); // Parse the JSON string to get cart items
+      this.computeCartTotals(); // Compute totals if there are items in the cart
+    }
+    // let data = JSON.parse(this.storage.getItem('cartItems')!); // Retrieve cart items from session storage
+    
+    // if(data != null) {
+    //   this.cartItems = data;
+    //   this.computeCartTotals(); // Compute totals if there are items in the cart
+    // }
+   }
+
+  // Method to add an item to the cart
+  persiteCartItems() { // Save cart items to session storage
+    this.storage.setItem('cartItems', JSON.stringify(this.cartItems)); // Save cart items
+  }
 
   addToCart(theCartItem: CartItem) {
     // Check if the item already exists in the cart
@@ -59,6 +80,8 @@ export class CartService {
     // Emit the total price and quantity
     this.totalPrice.next(totalPriceValue); // Emit the total price
     this.totalQuantity.next(totalQuantityValue); // Emit the total quantity
+
+    this.persiteCartItems(); // Persist cart items to session storage
 
   }
 
