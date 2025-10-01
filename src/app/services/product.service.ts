@@ -4,7 +4,7 @@ import { Product } from '../common/product';
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProductCategory } from '../common/product-category';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -12,10 +12,8 @@ import { environment } from '../../environments/environment.prod';
 })
 export class ProductService {
 
-  private baseUrl = `'https://aibazar-backend-production.up.railway.app/api'
-};/products`;
-  private categoryUrl = `'https://aibazar-backend-production.up.railway.app/api'
-};/product-category`;
+  private baseUrl = `${environment.apiUrl}/products`;
+  private categoryUrl = `${environment.apiUrl}/product-category`;
 
   constructor(private httpClient: HttpClient) { } // Inject HttpClient to make HTTP requests
 
