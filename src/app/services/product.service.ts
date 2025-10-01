@@ -12,8 +12,10 @@ import { environment } from '../../environments/environment.prod';
 })
 export class ProductService {
 
-  private baseUrl = `${environment.apiUrl}/products`;
-  private categoryUrl = `${environment.apiUrl}/product-category`;
+  private baseUrl = `'https://aibazar-backend-production.up.railway.app/api'
+};/products`;
+  private categoryUrl = `'https://aibazar-backend-production.up.railway.app/api'
+};/product-category`;
 
   constructor(private httpClient: HttpClient) { } // Inject HttpClient to make HTTP requests
 
