@@ -61,7 +61,10 @@ const routes: Routes = [
     AuthModule.forRoot({
       domain: environment.auth.domain,
       clientId: environment.auth.clientId,
-      authorizationParams: environment.auth.authorizationParams,
+    authorizationParams: {
+        redirect_uri: environment.auth.authorizationParams.redirect_uri,
+        audience: environment.auth.authorizationParams.audience
+      },
       httpInterceptor: {
         allowedList: environment.httpInterceptor.allowedList
       }

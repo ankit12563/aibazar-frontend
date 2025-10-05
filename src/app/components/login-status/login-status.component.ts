@@ -17,22 +17,37 @@ export class LoginStatusComponent {
 
   constructor(private auth: AuthService, @Inject(DOCUMENT) private doc: Document) {}
 
+  // ngOnInit(): void {
+  //   this.auth.isAuthenticated$.subscribe(
+  //     (authenticated: boolean) => {
+  //       this.isAuthenticated = authenticated;
+  //       console.log('User is authenticated: ', this.isAuthenticated);
+  //     }
+  //   );
+  //   this.auth.user$.subscribe(
+  //     (user) => {
+  //       this.userEmail = user?.email;
+  //        // now store the email in browser storage
+  //        this.storage.setItem('userEmail', JSON.stringify(this.userEmail));
+  //       console.log('User ID: ', this.userEmail);
+  //     }
+  //   );
+  // }
   ngOnInit(): void {
-    this.auth.isAuthenticated$.subscribe(
-      (authenticated: boolean) => {
-        this.isAuthenticated = authenticated;
-        console.log('User is authenticated: ', this.isAuthenticated);
-      }
-    );
-    this.auth.user$.subscribe(
-      (user) => {
+  this.auth.isAuthenticated$.subscribe((authenticated) => {
+    this.isAuthenticated = authenticated;
+    console.log('User is authenticated:', authenticated);
+
+    if (authenticated) {
+      this.auth.user$.subscribe((user) => {
         this.userEmail = user?.email;
-         // now store the email in browser storage
-         this.storage.setItem('userEmail', JSON.stringify(this.userEmail));
-        console.log('User ID: ', this.userEmail);
-      }
-    );
-  }
+        this.storage.setItem('userEmail', JSON.stringify(this.userEmail));
+        console.log('User Email:', this.userEmail);
+      });
+    }
+  });
+}
+
 
   login() {
     this.auth.loginWithRedirect();

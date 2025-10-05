@@ -7,7 +7,7 @@ export const environment = {
     clientId: "NyaVxI1zH2q80m1dwsI4q27xGBW76Bsp",
     authorizationParams: {
       redirect_uri: "https://aibazzar.netlify.app/login/callback",
-      audience: "https://aibazar-backend-production.up.railway.app/api",
+      audience: "https://aibazar-backend-production.up.railway.app",
     },
   },
 
