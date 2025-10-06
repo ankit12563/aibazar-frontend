@@ -7,26 +7,14 @@ export const environment = {
     clientId: 'NyaVxI1zH2q80m1dwsI4q27xGBW76Bsp',
     authorizationParams: {
       redirect_uri: 'https://aibazzar.netlify.app/login/callback',
-      audience: 'https://aibazar-backend-production.up.railway.app',
+      audience: 'https://aibazar-backend-production.up.railway.app',  // ✅ must match API identifier exactly
     },
   },
 
   httpInterceptor: {
     allowedList: [
-      {
-        uri: 'https://aibazar-backend-production.up.railway.app/api/checkout/purchase',
-        tokenOptions: {
-          audience: 'https://aibazar-backend-production.up.railway.app',
-          scope: 'openid profile email',
-        },
-      },
-      {
-        uri: 'https://aibazar-backend-production.up.railway.app/api/orders/*',
-        tokenOptions: {
-          audience: 'https://aibazar-backend-production.up.railway.app',
-          scope: 'openid profile email',
-        },
-      },
+      'https://aibazar-backend-production.up.railway.app/api/orders/**',
+      'https://aibazar-backend-production.up.railway.app/api/checkout/purchase'
     ],
-  },
+  }
 };
