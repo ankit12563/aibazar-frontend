@@ -1,65 +1,45 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-login-status',
   standalone: false,
   templateUrl: './login-status.component.html',
-  styleUrl: './login-status.component.css'
+  styleUrls: ['./login-status.component.css']
 })
-export class LoginStatusComponent {
+export class LoginStatusComponent implements OnInit {
 
   isAuthenticated: boolean = false;
-  profileJson: string | undefined;
-  userEmail: string | undefined;
-  storage: Storage = sessionStorage;
+  userEmail: string = '';
 
-  constructor(private auth: AuthService, @Inject(DOCUMENT) private doc: Document) {}
+  constructor(public auth: AuthService) {}
 
-  // ngOnInit(): void {
-  //   this.auth.isAuthenticated$.subscribe(
-  //     (authenticated: boolean) => {
-  //       this.isAuthenticated = authenticated;
-  //       console.log('User is authenticated: ', this.isAuthenticated);
-  //     }
-  //   );
-  //   this.auth.user$.subscribe(
-  //     (user) => {
-  //       this.userEmail = user?.email;
-  //        // now store the email in browser storage
-  //        this.storage.setItem('userEmail', JSON.stringify(this.userEmail));
-  //       console.log('User ID: ', this.userEmail);
-  //     }
-  //   );
-  // }
   ngOnInit(): void {
-  this.auth.isAuthenticated$.subscribe((authenticated) => {
-    this.isAuthenticated = authenticated;
-    console.log('User is authenticated:', authenticated);
+    // 🔹 Check login status
+    this.auth.isAuthenticated$.subscribe((loggedIn) => {
+      this.isAuthenticated = loggedIn;
 
-    if (authenticated) {
-      this.auth.user$.subscribe((user) => {
-        this.userEmail = user?.email;
-        this.storage.setItem('userEmail', JSON.stringify(this.userEmail));
-        console.log('User Email:', this.userEmail);
-      });
-    }
-  });
-}
+      if (loggedIn) {
+        // 🔹 Get user info (email)
+        this.auth.user$.subscribe((user) => {
+          this.userEmail = user?.email || 'Unknown User';
+        });
 
-
-  login() {
-    this.auth.loginWithRedirect();
-  }
-
-  logout(): void {
-    // this.auth.logout({ returnTo: this.doc.location.origin });
-    this.auth.logout({
-      logoutParams: {
-        returnTo: this.doc.location.origin
+        // 🔹 Get access token (debug check)
+        this.auth.getAccessTokenSilently().subscribe((token) => {
+          console.log('%c🔐 AUTH0 ACCESS TOKEN:', 'color: green; font-weight: bold;');
+          console.log(token);
+        });
       }
     });
   }
 
+  // 🔹 Login and Logout functions
+  login(): void {
+    this.auth.loginWithRedirect();
+  }
+
+  logout(): void {
+    this.auth.logout({ logoutParams: { returnTo: window.location.origin } });
+  }
 }
