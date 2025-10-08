@@ -8,6 +8,7 @@ import { Order } from '../../common/order';
 import { CartItem } from '../../common/cart-item';
 import { OrderItem } from '../../common/order-item';
 import { Purchase } from '../../common/purchase';
+import { AuthService } from '@auth0/auth0-angular';
 
 
 @Component({
@@ -26,38 +27,73 @@ export class CheckoutComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private cartService: CartService,  // Constructor to initialize the form and subscribe to cart updates
               private chekoutService: CheckoutService,
-              private router: Router) { } 
+              private router: Router,
+              private auth: AuthService ){}
 
-  ngOnInit(): void {
+  // ngOnInit(): void {
 
-    this.reviewCartDetails();
+  //   this.reviewCartDetails();
 
-    this.checkoutFormGroup = this.formBuilder.group({
-      customer: this.formBuilder.group({
-        firstName: new FormControl('', [Validators.required, Validators.minLength(2), AiValidators.notOnlyWhitespace]),
-        lastName: new FormControl('', [Validators.required, Validators.minLength(2), AiValidators.notOnlyWhitespace]),
-        email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'), AiValidators.notOnlyWhitespace]),
-        phoneNumber: new FormControl('', [Validators.required, Validators.pattern('^\\+?[0-9]{10,15}$'), AiValidators.notOnlyWhitespace])
+  //   this.checkoutFormGroup = this.formBuilder.group({
+  //     customer: this.formBuilder.group({
+  //       firstName: new FormControl('', [Validators.required, Validators.minLength(2), AiValidators.notOnlyWhitespace]),
+  //       lastName: new FormControl('', [Validators.required, Validators.minLength(2), AiValidators.notOnlyWhitespace]),
+  //       email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'), AiValidators.notOnlyWhitespace]),
+  //       phoneNumber: new FormControl('', [Validators.required, Validators.pattern('^\\+?[0-9]{10,15}$'), AiValidators.notOnlyWhitespace])
         
-      }), 
-      shippingAddress: this.formBuilder.group({
-        zipCode: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{7}$/), AiValidators.notOnlyWhitespace]),
-        country: new FormControl('', [Validators.required,  AiValidators.notOnlyWhitespace]),
-        state: new FormControl('', [Validators.required, AiValidators.notOnlyWhitespace]),
-        city: new FormControl('', [Validators.required, AiValidators.notOnlyWhitespace]),
-        street: new FormControl('', [Validators.required, AiValidators.notOnlyWhitespace]),
-      }),
+  //     }), 
+  //     shippingAddress: this.formBuilder.group({
+  //       zipCode: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{7}$/), AiValidators.notOnlyWhitespace]),
+  //       country: new FormControl('', [Validators.required,  AiValidators.notOnlyWhitespace]),
+  //       state: new FormControl('', [Validators.required, AiValidators.notOnlyWhitespace]),
+  //       city: new FormControl('', [Validators.required, AiValidators.notOnlyWhitespace]),
+  //       street: new FormControl('', [Validators.required, AiValidators.notOnlyWhitespace]),
+  //     }),
 
-      payment: this.formBuilder.group({
-        paymentMethod: new FormControl('', [Validators.required]),
-        nameOnCard: new FormControl('', [Validators.required, AiValidators.notOnlyWhitespace]),
-        cardNumber: new FormControl('', [Validators.required, Validators.pattern('^\\d{16}$'), AiValidators.notOnlyWhitespace]),
-        expiryDate: new FormControl('', [Validators.required]),
-        securityCode: new FormControl('', [Validators.required, Validators.pattern('^\\d{3}$'), AiValidators.notOnlyWhitespace]),
-      }),
-    });
+  //     payment: this.formBuilder.group({
+  //       paymentMethod: new FormControl('', [Validators.required]),
+  //       nameOnCard: new FormControl('', [Validators.required, AiValidators.notOnlyWhitespace]),
+  //       cardNumber: new FormControl('', [Validators.required, Validators.pattern('^\\d{16}$'), AiValidators.notOnlyWhitespace]),
+  //       expiryDate: new FormControl('', [Validators.required]),
+  //       securityCode: new FormControl('', [Validators.required, Validators.pattern('^\\d{3}$'), AiValidators.notOnlyWhitespace]),
+  //     }),
+  //   });
     
-  }
+  // }
+  ngOnInit(): void {
+  this.reviewCartDetails();
+
+  this.checkoutFormGroup = this.formBuilder.group({
+    customer: this.formBuilder.group({
+      firstName: new FormControl('', [Validators.required, Validators.minLength(2), AiValidators.notOnlyWhitespace]),
+      lastName: new FormControl('', [Validators.required, Validators.minLength(2), AiValidators.notOnlyWhitespace]),
+      email: new FormControl('', [Validators.required, Validators.email]), // leave it editable for now
+      phoneNumber: new FormControl('', [Validators.required, Validators.pattern('^\\+?[0-9]{10,15}$')])
+    }),
+    shippingAddress: this.formBuilder.group({
+      zipCode: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{7}$/)]),
+      country: new FormControl('', [Validators.required]),
+      state: new FormControl('', [Validators.required]),
+      city: new FormControl('', [Validators.required]),
+      street: new FormControl('', [Validators.required]),
+    }),
+    payment: this.formBuilder.group({
+      paymentMethod: new FormControl('', [Validators.required]),
+      nameOnCard: new FormControl('', [Validators.required]),
+      cardNumber: new FormControl('', [Validators.required, Validators.pattern('^\\d{16}$')]),
+      expiryDate: new FormControl('', [Validators.required]),
+      securityCode: new FormControl('', [Validators.required, Validators.pattern('^\\d{3}$')]),
+    }),
+  });
+
+  // ✅ Auto-fill email from Auth0 user profile
+  this.auth.user$.subscribe(user => {
+    if (user && user.email) {
+      this.checkoutFormGroup.get('customer.email')?.setValue(user.email);
+    }
+  });
+}
+
   reviewCartDetails() {
     
     this.cartService.totalQuantity.subscribe(
