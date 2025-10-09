@@ -1,11 +1,54 @@
 /* ==========================================
-   ✅ Mobile Header & Category Menu
+   ✅ LAYOUT RESTORE + MOBILE RESPONSIVE FIX
    ========================================== */
+
+/* Desktop Layout */
+@media (min-width: 992px) {
+  .page-wrapper {
+    display: flex;
+    flex-direction: row;
+    background: #e5e5e5;
+    min-height: 100vh;
+  }
+
+  .menu-sidebar {
+    width: 200px;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-right: 1px solid #ddd;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+  }
+
+  .page-container {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+    min-height: 100vh;
+    background: #e5e5e5;
+  }
+
+  .header-desktop {
+    background: #0da8e4;
+    height: 75px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .category-scroll {
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    padding: 0 10px;
+  }
+}
+
+/* Mobile Header */
 @media (max-width: 991px) {
   .mobile-header {
     position: sticky;
     top: 0;
-    z-index: 1050; /* above page content */
+    z-index: 1050;
   }
 
   .mobile-logo {
@@ -23,17 +66,22 @@
     from { opacity: 0; transform: translateY(-8px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-}
 
-/* Make sure desktop layout keeps space for the left sidebar */
-@media (min-width: 992px) {
+  /* Remove sidebar padding for mobile */
   .page-container {
-    padding-left: 200px; /* matches your sidebar width */
+    margin-left: 0;
+  }
+
+  .menu-sidebar {
+    display: none !important;
   }
 }
 
-/* The desktop sidebar should scroll its category list if long */
-.category-scroll {
-  max-height: calc(100vh - 140px);
-  overflow-y: auto;
+/* Footer */
+.footer-link {
+  color: #bbb;
+  text-decoration: none;
+}
+.footer-link:hover {
+  color: #fff;
 }
