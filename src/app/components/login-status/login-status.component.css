@@ -1,32 +1,41 @@
-.security-btn{
-        position:relative;
-        right:0px;
-        min-width:95px;
-        color:#fff;
-        border:10px solid #205b8d;
-        -webkit-border-radius:3px;
-        -moz-border-radius:3px;
-        border-radius:43px;
-        background:#205b8d
-    }
-
-    .login-status-header{
-    display:-webkit-box;
-    display:-webkit-flex;
-    display:-moz-box;
-    display:-ms-flexbox;
-    display:flex
+/* Container */
+.login-status-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .5rem;
+  flex-wrap: wrap;
 }
 
-.login-status-user-info{
-    line-height:43px;
-    border:1px;
-    padding:0 17px;
-    -webkit-border-radius:3px;
-    -moz-border-radius:3px;
-    border-radius:3px;
-    -webkit-transition:all .5s ease;
-    -o-transition:all .5s ease;
-    -moz-transition:all .5s ease;
-    transition:all .5s ease
+/* “Welcome back …” */
+.login-status-user-info {
+  color: #fff;
+  font-size: .95rem;
+  white-space: nowrap;
+}
+
+/* Buttons (hard override any theme making them huge & circular) */
+.security-btn {
+  background: #1f5b89;
+  color: #fff;
+  border: 0;
+  padding: .45rem .85rem !important;
+  font-size: .9rem !important;
+  line-height: 1 !important;
+  height: auto !important;
+  width: auto !important;
+  border-radius: .5rem !important;   /* ← not a circle anymore */
+}
+
+@media (max-width: 992px) {
+  .login-status-header { justify-content: center; }
+}
+
+@media (max-width: 576px) {
+  .login-status-user-info { font-size: .85rem; }
+  .security-btn {
+    padding: .35rem .65rem !important;
+    font-size: .85rem !important;
+    border-radius: .4rem !important;
+  }
 }

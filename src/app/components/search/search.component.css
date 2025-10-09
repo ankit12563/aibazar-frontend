@@ -1,0 +1,6 @@
+.search-container { display: flex; gap: .5rem; width: 100%; }
+.search-container input { flex: 1 1 auto; min-width: 0; }
+@media (max-width: 576px) {
+  .search-container { flex-direction: column; }
+  .search-container button { width: 100%; }
+}

@@ -1,20 +1,20 @@
-<div class="page-wrapper">
+<!-- <div class="page-wrapper">
 
-  <!-- MENU SIDEBAR-->
-  <aside class="menu-sidebar ">
+  MENU SIDEBAR-->
+  <!-- <aside class="menu-sidebar ">
     <div class="logo">
       <a routerLink="/products">
         <img src="/assets/logo.png" alt="logo" class="img-responsive">
       </a>
     </div>
     <app-product-category-menu></app-product-category-menu>
-  </aside>
+  </aside> -->
   <!-- END MENU SIDEBAR-->
 
-  <div class="page-container">
+  <!-- <div class="page-container"> -->
 
     <!-- HEADER DESKTOP-->
-    <header class="header-desktop">
+    <!-- <header class="header-desktop">
       <div class="section-content section-content-p30">
         <div class="container-fluid">
 
@@ -26,24 +26,100 @@
             <app-cart-status></app-cart-status>
 
           </div>
-          <div class="account-wrap"></div>
+          <div class="account-wrap"></div> 
         </div>
       </div>
-    </header>
+    </header> -->
     <!-- END HEADER DESKTOP-->
 
     <!-- MAIN CONTENT-->
-    <router-outlet></router-outlet> <!-- This is where the routed components will be displayed -->
+    <!-- <router-outlet></router-outlet> This is where the routed components will be displayed -->
 
-  </div>
-</div>
+  <!-- </div>
+</div> -->
 
 <!-- ENDS PAGE CONTAINER -->
 
-<footer>
+<!-- <footer>
   <ul>
     <li><a href="#">About Us</a></li>
     <li><a href="#">Contact Us</a></li>
     <li><a href="#">Help</a></li>
   </ul>
+</footer> -->
+
+<div class="page-wrapper">
+
+  <!-- ✅ STICKY SIDEBAR (Desktop) -->
+  <aside class="menu-sidebar d-none d-md-flex flex-column align-items-center">
+    <div class="logo text-center py-3">
+      <a routerLink="/products">
+        <img src="/assets/logo.png" alt="logo" class="img-fluid" />
+      </a>
+      <h4 class="mt-2 text-primary fw-bold">AiBazaar</h4>
+    </div>
+
+    <!-- Dynamic categories -->
+    <div class="category-scroll">
+      <app-product-category-menu></app-product-category-menu>
+    </div>
+  </aside>
+
+  <!-- ✅ Collapsible Sidebar (Mobile & Tablet) -->
+  <div class="d-flex d-md-none justify-content-center bg-light py-2 border-bottom shadow-sm">
+    <button
+      class="btn btn-outline-primary"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mobileCategoryMenu"
+    >
+      ☰ Categories
+    </button>
+  </div>
+
+  <div id="mobileCategoryMenu" class="collapse d-md-none bg-white border-bottom">
+    <app-product-category-menu></app-product-category-menu>
+  </div>
+
+  <!-- ✅ MAIN PAGE CONTAINER -->
+  <div class="page-container flex-grow-1">
+
+    <!-- HEADER -->
+    <header class="header-desktop">
+      <div class="container-fluid px-3 py-2">
+        <div class="header-wrap d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
+
+          <!-- Search -->
+          <div class="flex-grow-1 w-100 w-lg-50">
+            <app-search></app-search>
+          </div>
+
+          <!-- Login & Orders -->
+          <div class="d-flex align-items-center gap-2 flex-wrap justify-content-center">
+            <app-login-status></app-login-status>
+          </div>
+
+          <!-- Cart -->
+          <app-cart-status></app-cart-status>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+</div>
+
+<!-- ✅ FOOTER -->
+<footer class="footer bg-dark text-light text-center py-3 mt-4">
+  <ul class="list-inline mb-1">
+    <li class="list-inline-item"><a href="#" class="footer-link">About Us</a></li>
+    <li class="list-inline-item"><a href="#" class="footer-link">Contact Us</a></li>
+    <li class="list-inline-item"><a href="#" class="footer-link">Help</a></li>
+  </ul>
+  <p class="mb-0 small">&copy; 2025 AiBazaar. All rights reserved.</p>
 </footer>
