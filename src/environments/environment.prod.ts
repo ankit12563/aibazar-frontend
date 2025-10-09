@@ -32,22 +32,11 @@ export const environment = {
     },
   },
 
+  // ✅ FIXED VERSION — compatible with latest @auth0/auth0-angular
   httpInterceptor: {
     allowedList: [
-      {
-        uri: 'https://aibazar-backend-production.up.railway.app/api/orders/*',
-        httpMethod: 'GET',
-        tokenOptions: {
-          audience: 'https://aibazar-backend-production.up.railway.app',
-        },
-      },
-      {
-        uri: 'https://aibazar-backend-production.up.railway.app/api/checkout/purchase',
-        httpMethod: 'POST',
-        tokenOptions: {
-          audience: 'https://aibazar-backend-production.up.railway.app',
-        },
-      },
+      'https://aibazar-backend-production.up.railway.app/api/orders/*',
+      'https://aibazar-backend-production.up.railway.app/api/checkout/purchase'
     ],
   },
 };
