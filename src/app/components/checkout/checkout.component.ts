@@ -47,6 +47,7 @@ export class CheckoutComponent implements OnInit {
     this.auth.user$.subscribe(user => {
       if (user?.email) {
         this.checkoutFormGroup.get('customer.email')?.setValue(user.email);
+        localStorage.setItem('userEmail', JSON.stringify(user.email));
       }
     });
   }

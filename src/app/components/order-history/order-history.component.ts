@@ -14,7 +14,7 @@ export class OrderHistoryComponent implements OnInit {
   orderHistoryList: OrderHistory[] = [];
   expandedOrderId: number | null = null;
   orderItemsMap: Map<number, any[]> = new Map();
-  storage: Storage = sessionStorage;
+  storage: Storage = localStorage;
 
   constructor(private orderHistoryService: OrderHistoryService) {}
 
