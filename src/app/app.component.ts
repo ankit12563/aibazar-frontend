@@ -8,10 +8,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-ecommerce';
-
-  mobileCategoriesVisible = false;
-
-toggleMobileCategories(): void {
-  this.mobileCategoriesVisible = !this.mobileCategoriesVisible;
-}
 }

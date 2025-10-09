@@ -1,72 +1,49 @@
-<div class="page-wrapper d-flex">
+<div class="page-wrapper">
 
-  <!-- ✅ LEFT SIDEBAR (Desktop) -->
-  <aside class="menu-sidebar d-none d-md-flex flex-column align-items-center">
-    <div class="logo text-center py-3">
+  <!-- MENU SIDEBAR-->
+  <aside class="menu-sidebar ">
+    <div class="logo">
       <a routerLink="/products">
-        <img src="/assets/logo.png" alt="logo" class="img-fluid" />
+        <img src="/assets/logo.png" alt="logo" class="img-responsive">
       </a>
-      <h4 class="mt-2 text-primary fw-bold">AiBazaar</h4>
     </div>
-
-    <!-- Category list -->
-    <div class="category-scroll w-100 px-3">
-      <app-product-category-menu></app-product-category-menu>
-    </div>
+    <app-product-category-menu></app-product-category-menu>
   </aside>
+  <!-- END MENU SIDEBAR-->
 
-  <!-- ✅ MAIN CONTENT WRAPPER -->
-  <div class="page-container flex-grow-1">
+  <div class="page-container">
 
-    <!-- ✅ MOBILE HEADER (Logo + Categories) -->
-    <div class="mobile-header d-md-none text-center bg-white py-2 shadow-sm">
-      <a routerLink="/products">
-        <img src="/assets/logo.png" alt="AiBazaar" class="mobile-logo mb-1" />
-      </a>
-      <h5 class="fw-bold text-primary mb-2">AiBazaar</h5>
-      <button class="btn btn-primary px-4 py-2" (click)="toggleMobileCategories()">
-        ☰ Categories
-      </button>
-
-      <!-- Mobile categories -->
-      <div class="mobile-category-menu bg-white mt-2 border-top" *ngIf="mobileCategoriesVisible">
-        <app-product-category-menu></app-product-category-menu>
-      </div>
-    </div>
-
-    <!-- ✅ HEADER (Search + Login + Cart) -->
+    <!-- HEADER DESKTOP-->
     <header class="header-desktop">
-      <div class="container-fluid px-3 py-2">
-        <div class="header-wrap d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
-          <!-- Search -->
-          <div class="flex-grow-1 w-100 w-lg-50">
+      <div class="section-content section-content-p30">
+        <div class="container-fluid">
+
+          <div class="header-wrap">
             <app-search></app-search>
-          </div>
 
-          <!-- Login & Orders -->
-          <div class="d-flex align-items-center gap-2 flex-wrap justify-content-center">
             <app-login-status></app-login-status>
-          </div>
 
-          <!-- Cart -->
-          <app-cart-status></app-cart-status>
+            <app-cart-status></app-cart-status>
+
+          </div>
+          <div class="account-wrap"></div>
         </div>
       </div>
     </header>
+    <!-- END HEADER DESKTOP-->
 
-    <!-- ✅ MAIN CONTENT -->
-    <main class="main-content">
-      <router-outlet></router-outlet>
-    </main>
+    <!-- MAIN CONTENT-->
+    <router-outlet></router-outlet> <!-- This is where the routed components will be displayed -->
 
-    <!-- ✅ FOOTER -->
-    <footer class="footer bg-dark text-light text-center py-3 mt-4">
-      <ul class="list-inline mb-1">
-        <li class="list-inline-item"><a href="#" class="footer-link">About Us</a></li>
-        <li class="list-inline-item"><a href="#" class="footer-link">Contact Us</a></li>
-        <li class="list-inline-item"><a href="#" class="footer-link">Help</a></li>
-      </ul>
-      <p class="mb-0 small">&copy; 2025 AiBazaar. All rights reserved.</p>
-    </footer>
   </div>
 </div>
+
+<!-- ENDS PAGE CONTAINER -->
+
+<footer>
+  <ul>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">Contact Us</a></li>
+    <li><a href="#">Help</a></li>
+  </ul>
+</footer>
