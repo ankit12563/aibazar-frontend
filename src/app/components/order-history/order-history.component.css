@@ -1,0 +1,22 @@
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+.card {
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.btn-outline-primary {
+  font-weight: 500;
+}
+
+h3.title-1 {
+  color: #0077b6;
+  font-weight: 600;
+}

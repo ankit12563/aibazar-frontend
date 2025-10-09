@@ -56,7 +56,6 @@ import { Component, OnInit } from '@angular/core';
 import { OrderHistory } from '../../common/order-history';
 import { OrderHistoryService } from '../../services/order-history.service';
 import { OrderItem } from '../../common/order-item';
-import { CurrencyPipe } from '@angular/common';
 import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
@@ -68,11 +67,9 @@ import { AuthService } from '@auth0/auth0-angular';
 export class OrderHistoryComponent implements OnInit {
 
   orderHistoryList: OrderHistory[] = [];
-  expandedOrderId: number | null = null;
   orderItemsMap: Map<number, OrderItem[]> = new Map();
-  currencyPipe: CurrencyPipe = new CurrencyPipe('en-US');
+  expandedOrderId: number | null = null;
   userEmail: string = '';
-  storage: Storage = sessionStorage;
 
   constructor(
     private orderHistoryService: OrderHistoryService,
@@ -80,58 +77,39 @@ export class OrderHistoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // ✅ Try to get the logged-in Auth0 user's email
     this.auth.user$.subscribe(user => {
       if (user && user.email) {
         this.userEmail = user.email;
-        this.storage.setItem('userEmail', JSON.stringify(this.userEmail)); // store in sessionStorage
-        console.log('✅ Logged-in email:', this.userEmail);
-        this.handleOrderHistory(this.userEmail);
+        console.log('✅ Logged in as:', this.userEmail);
+        this.loadOrderHistory();
       } else {
-        // fallback: if already stored in sessionStorage
-        const storedEmail = JSON.parse(this.storage.getItem('userEmail') || 'null');
-        if (storedEmail) {
-          this.userEmail = storedEmail;
-          console.log('📦 Using stored email:', this.userEmail);
-          this.handleOrderHistory(this.userEmail);
-        } else {
-          console.warn('⚠️ No email found in Auth0 or sessionStorage');
-        }
+        console.warn('⚠️ No Auth0 user email found');
       }
     });
   }
 
-  // ✅ Load orders for this user's email
-  handleOrderHistory(theEmail: string) {
-    this.orderHistoryService.getOrderHistory(theEmail).subscribe({
-      next: (data: any) => {
-        this.orderHistoryList = data._embedded.orders;
-        console.log('📦 Orders fetched:', this.orderHistoryList);
+  loadOrderHistory() {
+    if (!this.userEmail) return;
+
+    this.orderHistoryService.getOrderHistory(this.userEmail).subscribe({
+      next: (response) => {
+        this.orderHistoryList = response._embedded?.orders || [];
+        console.log('📦 Orders:', this.orderHistoryList);
+
+        this.orderHistoryList.forEach(order => {
+          this.orderHistoryService.getOrderItems(Number(order.id)).subscribe(itemRes => {
+
+            this.orderItemsMap.set(Number(order.id), itemRes._embedded?.orderItems || []);
+          });
+        });
       },
       error: (err) => {
-        console.error('❌ Failed to load orders:', err);
+        console.error('❌ Failed to fetch order history:', err);
       }
     });
   }
 
-  // ✅ Toggle and fetch order items
-  toggleDetails(orderId: number) {
-    if (this.expandedOrderId === orderId) {
-      this.expandedOrderId = null;
-    } else {
-      this.expandedOrderId = orderId;
-
-      if (!this.orderItemsMap.has(orderId)) {
-        this.orderHistoryService.getOrderItems(orderId).subscribe({
-          next: (data: any) => {
-            this.orderItemsMap.set(orderId, data._embedded.orderItems);
-            console.log(`🧾 Items for order ${orderId}:`, data._embedded.orderItems);
-          },
-          error: (err) => {
-            console.error(`❌ Error loading order ${orderId} items:`, err);
-          }
-        });
-      }
-    }
+  toggleOrderDetails(orderId: number) {
+    this.expandedOrderId = this.expandedOrderId === orderId ? null : orderId;
   }
 }
