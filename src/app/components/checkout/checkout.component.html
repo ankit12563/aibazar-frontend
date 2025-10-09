@@ -1,4 +1,4 @@
-<div class="main-content page-m">
+<!-- <div class="main-content page-m">
     <div class="section-content section-content-p30">
         <div class="container-fluid">
             <h2 class="title-1 m-b-25">Checkout</h2>
@@ -43,7 +43,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="row">
+                    <div class="row">
                         <div class="col-md-4"><label>
                                 <h5>BirthDate</h5>
                             </label>
@@ -68,7 +68,7 @@
                         </div>
                     </div> -->
 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-6"><label>
                                 <h5>Email</h5>
                             </label>
@@ -81,9 +81,9 @@
                                     is required.</div>
                                 <div *ngIf="email?.errors?.['pattern']">Email must be vaild email.</div>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="col-md-6"><label>
+                        <!-- <div class="col-md-6"><label>
                                 <h5>Phone Number</h5>
                             </label>
                             <input type="text" class="form-control" formControlName="phoneNumber"
@@ -97,16 +97,16 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> 
                     </div>
-                </div>
+                 </div> -->
 
 
 
-                <div formGroupName="shippingAddress" class="form-area">
-                    <h3>Shipping Address</h3>
+                <!--<div formGroupName="shippingAddress" class="form-area">
+                    <h3>Shipping Address</h3> -->
 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-4"><label>
                                 <h5>Zip Code</h5>
                             </label>
@@ -123,39 +123,37 @@
                                 </div>
 
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="row">
-                            <div class="col-md-4"><label>
-                                    <h5>Country</h5>
-                                </label>
-                                <input type="text" class="form-control" formControlName="country"
-                                    placeholder="Enter your country">
-                                <div *ngIf="country?.invalid && (country?.touched || country?.dirty)"
-                                    class="alert alert-danger mt-1">
-                                    <div
-                                        *ngIf="country?.errors?.['required'] || country?.errors?.['notOnlyWhitespace']">
-                                        Country is required.
-                                    </div>
+                    <!-- <div class="row">
+                        <div class="col-md-4"><label>
+                                <h5>Country</h5>
+                            </label>
+                            <input type="text" class="form-control" formControlName="country"
+                                placeholder="Enter your country">
+                            <div *ngIf="country?.invalid && (country?.touched || country?.dirty)"
+                                class="alert alert-danger mt-1">
+                                <div *ngIf="country?.errors?.['required'] || country?.errors?.['notOnlyWhitespace']">
+                                    Country is required.
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4"><label>
-                                        <h5>State</h5>
-                                    </label>
-                                    <input type="text" class="form-control" formControlName="state"
-                                        placeholder="Enter your state">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><label>
+                                    <h5>State</h5>
+                                </label>
+                                <input type="text" class="form-control" formControlName="state"
+                                    placeholder="Enter your state">
 
-                                    <div *ngIf="state?.invalid && (state?.touched || state?.dirty)"
-                                        class="alert alert-danger mt-1">
-                                        <div
-                                            *ngIf="state?.errors?.['required'] || state?.errors?.['notOnlyWhitespace']">
-                                            State is required.
-                                        </div>
+                                <div *ngIf="state?.invalid && (state?.touched || state?.dirty)"
+                                    class="alert alert-danger mt-1">
+                                    <div *ngIf="state?.errors?.['required'] || state?.errors?.['notOnlyWhitespace']">
+                                        State is required.
                                     </div>
                                 </div>
+                            </div> -->
 
-                                <div class="col-md-4"><label>
+                            <!-- <div class="col-md-4"><label>
                                         <h5>City</h5>
                                     </label>
                                     <input type="text" class="form-control" formControlName="city"
@@ -190,7 +188,7 @@
                 </div>
 
 
-                <div formGroupName="payment" class="form-area">
+                  <div formGroupName="payment" class="form-area">
                     <h3>Payment Details</h3>
 
                     <div class="row">
@@ -210,9 +208,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div class="row">
+                            <!-- <div class="row">
                         <div class="col-md-4"><label>
                                 <h5>Card Holder Name</h5>
                             </label>
@@ -285,30 +283,126 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    </div> -->
 
 
 
-                <div class="form-area">
-                    <h3>Order Summary</h3>
-                    <p>Items in your cart: <strong>{{ totalQuantity }}</strong></p>
-                    <p>Shipping: <strong>Free</strong></p>
-                    <p>Total Amount: <strong>{{ totalPrice | currency: 'USD' }}</strong></p>
-                    <p>Note: By clicking "Purchase", you agree to our <b>Terms and Conditions</b>.</p>
-                </div>
+                            <!-- <div class="form-area">
+                                <h3>Order Summary</h3>
+                                <p>Items in your cart: <strong>{{ totalQuantity }}</strong></p>
+                                <p>Shipping: <strong>Free</strong></p>
+                                <p>Total Amount: <strong>{{ totalPrice | currency: 'USD' }}</strong></p>
+                                <p>Note: By clicking "Purchase", you agree to our <b>Terms and Conditions</b>.</p>
+                            </div>
 
 
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <button type="submit" class="btn btn-info m-t-15 waves-effect">Purchase</button>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-info m-t-15 waves-effect">Purchase</button>
+                                </div>
+
+                            </div>
                     </div>
-
                 </div>
-
 
             </form>
 
         </div>
 
     </div>
+</div> -->
+
+<div class="main-content page-m">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <h2 class="title-1 m-b-25">Checkout</h2>
+      <p>Fill in your details to proceed with the checkout.</p>
+
+      <br>
+
+      <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
+
+        <!-- CUSTOMER DETAILS -->
+        <div formGroupName="customer" class="form-area">
+          <h3>Customer Details</h3>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label><h5>First Name</h5></label>
+              <input type="text" class="form-control" formControlName="firstName" placeholder="Enter your first name">
+              <div *ngIf="firstName?.invalid && (firstName?.touched || firstName?.dirty)" class="alert alert-danger mt-1">
+                <div *ngIf="firstName?.errors?.['required'] || firstName?.errors?.['notOnlyWhitespace']">
+                  First name is required.
+                </div>
+                <div *ngIf="firstName?.errors?.['minlength']">
+                  First name must be at least 2 characters long.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label><h5>Last Name</h5></label>
+              <input type="text" class="form-control" formControlName="lastName" placeholder="Enter your last name">
+              <div *ngIf="lastName?.invalid && (lastName?.touched || lastName?.dirty)" class="alert alert-danger mt-1">
+                <div *ngIf="lastName?.errors?.['required'] || lastName?.errors?.['notOnlyWhitespace']">
+                  Last name is required.
+                </div>
+                <div *ngIf="lastName?.errors?.['minlength']">
+                  Last name must be at least 2 characters long.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label><h5>Email</h5></label>
+              <input type="text" class="form-control" formControlName="email" placeholder="Enter your email">
+              <div *ngIf="email?.invalid && (email?.touched || email?.dirty)" class="alert alert-danger mt-1">
+                <div *ngIf="email?.errors?.['required'] || email?.errors?.['notOnlyWhitespace']">
+                  Email is required.
+                </div>
+                <div *ngIf="email?.errors?.['pattern']">
+                  Email must be valid.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHIPPING ADDRESS -->
+        <div formGroupName="shippingAddress" class="form-area">
+          <h3>Shipping Address</h3>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label><h5>Country</h5></label>
+              <input type="text" class="form-control" formControlName="country" placeholder="Enter your country">
+              <div *ngIf="country?.invalid && (country?.touched || country?.dirty)" class="alert alert-danger mt-1">
+                <div *ngIf="country?.errors?.['required'] || country?.errors?.['notOnlyWhitespace']">
+                  Country is required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ORDER SUMMARY -->
+        <div class="form-area">
+          <h3>Order Summary</h3>
+          <p>Items in your cart: <strong>{{ totalQuantity }}</strong></p>
+          <p>Shipping: <strong>Free</strong></p>
+          <p>Total Amount: <strong>{{ totalPrice | currency: 'USD' }}</strong></p>
+          <p>Note: By clicking "Purchase", you agree to our <b>Terms and Conditions</b>.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-info m-t-15 waves-effect">Purchase</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
 </div>
